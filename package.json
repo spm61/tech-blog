@@ -1,0 +1,12 @@
+{
+  "name": "tech-blog",
+  "version": "1.0.0",
+  "description": "tech blog with MVC",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "Sean Moroney",
+  "license": "MIT"
+}
