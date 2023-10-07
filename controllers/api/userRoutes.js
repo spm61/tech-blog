@@ -110,10 +110,9 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
+    console.log(req.session.loggedIn);
     if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
+        req.session.destroy();
     } else {
         res.status(404).end();
     }
