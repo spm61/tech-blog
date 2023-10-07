@@ -1,34 +1,39 @@
-const User = require('./user');
-const Post = require('./post');
-const Comment = require('./comment');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
+class Comment extends Model {}
+Comment.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    comment_text: {
+        type: DataTypes.STRING,
+        validate: {
 
-User.hasMany(Post, {
-    foreignKey: 'user_id'
+            len: [3]
+        }
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'user',
+            key: 'id'
+        }
+    },
+    post_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'post',
+            key: 'id'
+        }
+    }
+}, {
+    sequelize,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'comment'
 });
-
-Post.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'cascade'
-});
-
-Comment.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: "cascade"
-});
-
-Comment.belongsTo(Post, {
-    foreignKey: 'post_id',
-    onDelete: "cascade"
-});
-
-User.hasMany(Comment, {
-    foreignKey: 'user_id',
-    onDelete: "cascade"
-});
-
-Post.hasMany(Comment, {
-    foreignKey: 'post_id',
-    onDelete: "cascade"
-});
-
-module.exports = { User, Post, Comment };
+module.exports = Comment;
