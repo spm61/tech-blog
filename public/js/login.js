@@ -6,7 +6,7 @@ async function loginFormHandler(event) {
   
     if (username && password) { //only invoke this route if we have the username and password provided.
       const response = await fetch('/api/users/login', {
-        method: 'post',
+        method: 'POST',
         body: JSON.stringify({
           username,
           password
